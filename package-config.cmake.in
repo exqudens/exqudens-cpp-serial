@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include("CMakeFindDependencyMacro")
+
+find_dependency("serial" "@exqudens-cpp-serial_CMAKE_PACKAGE_serial_VERSION@")
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@-targets.cmake")
+
+check_required_components("@PROJECT_NAME@")
