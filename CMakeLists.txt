@@ -346,7 +346,7 @@ set("${PROJECT_NAME}-source-files"
     "src/main/cpp/exqudens/serial/Serial.cpp"
 )
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
-    set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} Ws2_32.lib")
+    set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} setupapi.lib")
 elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
     #set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} Ws2_32.lib")
 endif()
