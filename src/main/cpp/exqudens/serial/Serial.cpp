@@ -2,6 +2,7 @@
 * @file Serial.cpp
 */
 
+#include <cctype>
 #include <limits>
 #include <filesystem>
 #include <memory>
@@ -48,10 +49,7 @@ namespace exqudens {
             std::vector<serial::PortInfo> portInfos = serial::list_ports();
 
             for (const serial::PortInfo& portInfo : portInfos) {
-                std::map<std::string, std::string> result;
-                result.insert({"port", portInfo.port});
-                result.insert({"description", portInfo.description});
-                result.insert({"hardware-id", portInfo.hardware_id});
+                std::map<std::string, std::string> result = toMap(portInfo);
 
                 if (logFunction) {
                     std::string message = "{";
@@ -248,6 +246,34 @@ namespace exqudens {
             } catch (...) {
                 log(__FILE__, __LINE__, __FUNCTION__, LOGGER_ID, LOGGER_LEVEL_ERROR, "Unknown error in destructor on call function: 'close'");
             }
+        }
+    }
+
+    std::map<std::string, std::string> Serial::toMap(const serial::PortInfo& value) {
+        try {
+            std::map<std::string, std::string> result = {};
+            result.insert({"port", normalize(value.port)});
+            result.insert({"hardware-id", normalize(value.hardware_id)});
+            result.insert({"description", normalize(value.description)});
+            return result;
+        } catch (...) {
+            std::throw_with_nested(std::runtime_error(CALL_INFO));
+        }
+    }
+
+    std::string Serial::normalize(const std::string& value) {
+        try {
+            std::string result = "";
+            for (size_t i = 0; i < value.size(); i++) {
+                if (std::isalnum(value.at(i)) != 0 || std::ispunct(value.at(i)) != 0) {
+                    result += value.at(i);
+                } else if (std::isspace(value.at(i)) != 0) {
+                    result += ' ';
+                }
+            }
+            return result;
+        } catch (...) {
+            std::throw_with_nested(std::runtime_error(CALL_INFO));
         }
     }
 

@@ -79,6 +79,10 @@ namespace exqudens {
 
       private:
 
+         std::map<std::string, std::string> toMap(const serial::PortInfo& value);
+
+         std::string normalize(const std::string& value);
+
          void log(
             const std::string& file,
             const size_t& line,
