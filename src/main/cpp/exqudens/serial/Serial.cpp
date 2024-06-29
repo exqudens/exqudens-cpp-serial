@@ -22,6 +22,10 @@ namespace exqudens {
 
     Serial::Serial(): Serial(true) {}
 
+    std::string Serial::getLoggerId() {
+        return std::string(LOGGER_ID);
+    }
+
     void Serial::setLogFunction(
         const std::function<void(
             const std::string& file,
@@ -53,10 +57,11 @@ namespace exqudens {
 
                 if (logFunction) {
                     std::string message = "{";
-                    message += "'port': '" + result.at("port") + "', ";
-                    message += "'description': '" + result.at("description") + "', ";
-                    message += "'hardware-id': '" + result.at("hardware_id") + "'";
+                    message += "\"port\": \"" + result.at("port") + "\", ";
+                    message += "\"description\": \"" + result.at("description") + "\", ";
+                    message += "\"hardware-id\": \"" + result.at("hardware-id") + "\"";
                     message += "}";
+                    log(__FILE__, __LINE__, __FUNCTION__, LOGGER_ID, LOGGER_LEVEL_DEBUG, message);
                 }
 
                 results.emplace_back(result);

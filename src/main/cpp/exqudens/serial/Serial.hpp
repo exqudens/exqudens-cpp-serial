@@ -32,6 +32,8 @@ namespace exqudens {
          Serial(const bool& autoClose);
          Serial();
 
+         std::string getLoggerId() override;
+
          void setLogFunction(
                const std::function<void(
                      const std::string&,
