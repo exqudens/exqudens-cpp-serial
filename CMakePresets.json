@@ -18,12 +18,22 @@
     {
       "name": "windows",
       "hidden": true,
-      "cmakeExecutable": "cmake.exe"
+      "cmakeExecutable": "cmake.exe",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
     },
     {
       "name": "linux",
       "hidden": true,
-      "cmakeExecutable": "cmake"
+      "cmakeExecutable": "cmake",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
     },
     {
       "name": "ninja",
@@ -159,6 +169,7 @@
 
     {
       "name": "windows.ninja.msvc-16-x64-x64.interface",
+      "hidden": true,
       "inherits": [ "default", "windows", "ninja", "msvc-16-x64-x64", "interface", "mtd" ],
       "binaryDir": "${sourceDir}/build/0"
     },
@@ -185,6 +196,7 @@
 
     {
       "name": "linux.ninja.gcc.interface",
+      "hidden": true,
       "inherits": [ "default", "linux", "ninja", "gcc", "debug", "shared" ],
       "binaryDir": "${sourceDir}/build/5"
     },
