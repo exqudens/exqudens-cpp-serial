@@ -23,6 +23,7 @@ namespace exqudens {
             *
             * @return A logger id.
             */
+            EXQUDENS_SERIAL_INLINE
             virtual std::string getLoggerId() = 0;
 
             /*!
